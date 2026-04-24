@@ -44,6 +44,134 @@
 
   @keyframes fadeIn  { from {opacity: 0} to {opacity: 1} }
   @keyframes slideUp { from {opacity:0; transform:translateY(24px)} to {opacity:1; transform:translateY(0)} }
+
+  /* ─────────────────────────────────────────────────────────────────
+     MOBILE & TABLET — progressive simplification
+     ─────────────────────────────────────────────────────────────────*/
+
+  /* Tablet — 2 cols → 1 col, reduced side padding */
+  @media (max-width: 900px) {
+    section[data-hero] {
+      grid-template-columns: 1fr !important;
+      gap: 40px !important;
+      padding: 32px 32px 56px !important;
+      min-height: auto !important;
+    }
+    [data-hero-name] {
+      font-size: clamp(64px, 14vw, 120px) !important;
+      margin: 20px 0 !important;
+    }
+    [data-project-row] [data-project-title] {
+      font-size: clamp(32px, 7.5vw, 64px) !important;
+    }
+    [data-section-title] {
+      font-size: clamp(22px, 4.4vw, 30px) !important;
+    }
+    [data-contact] {
+      padding: 64px 32px !important;
+    }
+    [data-contact-inner] {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 40px !important;
+    }
+    [data-contact-cta] {
+      font-size: clamp(56px, 14vw, 140px) !important;
+    }
+    [data-footer] { padding: 24px 32px 32px !important; }
+    [data-modal] [data-modal-header] { padding: 48px 32px 36px !important; }
+    [data-modal] [data-modal-body]   { padding: 36px 32px 48px !important; }
+  }
+
+  /* Phone — tighter paddings and type */
+  @media (max-width: 640px) {
+    section[data-hero] {
+      padding: 20px 20px 40px !important;
+      gap: 32px !important;
+    }
+    [data-hero-name] {
+      font-size: clamp(52px, 16vw, 88px) !important;
+      line-height: 0.92 !important;
+      margin: 12px 0 !important;
+    }
+    [data-logo]        { font-size: 22px !important; }
+    [data-logo-flower] { width: 18px !important; height: 18px !important; }
+
+    [data-section-title] {
+      font-size: 20px !important;
+      letter-spacing: 0.02em !important;
+    }
+    [data-project-row] {
+      padding: 18px 0 !important;
+      gap: 10px !important;
+    }
+    [data-project-row][data-hovered="true"] {
+      padding-left: 0 !important;
+    }
+    [data-project-number] {
+      font-size: 10px !important;
+      min-width: 22px !important;
+      margin-top: 8px !important;
+    }
+    [data-project-title] {
+      font-size: clamp(28px, 9vw, 44px) !important;
+      letter-spacing: -0.02em !important;
+      line-height: 1 !important;
+    }
+
+    [data-contact] {
+      padding: 56px 20px 48px !important;
+    }
+    [data-contact-cta] {
+      font-size: clamp(44px, 15vw, 96px) !important;
+      letter-spacing: -0.035em !important;
+    }
+    [data-contact-email] {
+      font-size: 15px !important;
+      word-break: break-all !important;
+    }
+    [data-contact-label] {
+      font-size: 15px !important;
+    }
+    [data-footer] {
+      padding: 20px 20px 28px !important;
+    }
+    [data-footer-brand] {
+      font-size: 16px !important;
+    }
+
+    [data-modal-overlay] {
+      padding: 0 !important;
+      align-items: flex-start !important;
+    }
+    [data-modal] {
+      border: none !important;
+      max-height: 100vh !important;
+      max-width: 100% !important;
+    }
+    [data-modal] [data-modal-header] {
+      padding: 32px 20px 24px !important;
+    }
+    [data-modal] [data-modal-header] h1 {
+      font-size: clamp(40px, 10vw, 60px) !important;
+    }
+    [data-modal] [data-modal-header] p {
+      font-size: 17px !important;
+    }
+    [data-modal] [data-modal-body] {
+      padding: 28px 20px 40px !important;
+    }
+    [data-modal-close] {
+      top: 16px !important; right: 16px !important;
+    }
+  }
+
+  /* Touch devices — no cursor-reactive letter jitter */
+  @media (hover: none) and (pointer: coarse) {
+    [data-reactive-letter] {
+      transform: none !important;
+    }
+  }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
@@ -186,7 +314,7 @@ function ReactiveLetter({ char, mouse, containerRef }) {
   }, [mouse.x, mouse.y, mouse.active]);
 
   return (
-    <span ref={ref} style={{
+    <span ref={ref} data-reactive-letter="true" style={{
       display: 'inline-block',
       transform: `translate(${tx.x}px, ${tx.y}px) rotate(${tx.r}deg) scale(${tx.s})`,
       transition: 'transform .28s cubic-bezier(.2,.7,.3,1)',
@@ -219,6 +347,8 @@ function ProjectLine({ project, onOpen, allMuted, isHovered, onEnter, onLeave })
       onClick={() => onOpen(project)}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
+      data-project-row="true"
+      data-hovered={isHovered}
       style={{
         display: 'flex',
         alignItems: 'baseline',
@@ -234,7 +364,7 @@ function ProjectLine({ project, onOpen, allMuted, isHovered, onEnter, onLeave })
         transition: 'opacity .3s ease',
       }}
     >
-      <span style={{
+      <span data-project-number="true" style={{
         fontFamily: 'var(--sans)', fontSize: 12,
         fontWeight: 600,
         color: 'var(--accent)', letterSpacing: '0.04em',
@@ -242,7 +372,7 @@ function ProjectLine({ project, onOpen, allMuted, isHovered, onEnter, onLeave })
         minWidth: 22,
       }}>{number}</span>
 
-      <span style={{
+      <span data-project-title="true" style={{
         fontFamily: 'var(--display)',
         fontStyle: 'italic',
         fontWeight: 500,
@@ -290,6 +420,7 @@ function Hero({ onOpen }) {
   return (
     <section
       ref={wrapRef}
+      data-hero="true"
       style={{
         position: 'relative',
         minHeight: '100vh',
@@ -314,6 +445,7 @@ function Hero({ onOpen }) {
         }}>
           <div
             aria-hidden="true"
+            data-logo-flower="true"
             style={{
               width: 22, height: 22,
               backgroundImage: 'var(--flower-url)',
@@ -323,7 +455,7 @@ function Hero({ onOpen }) {
               flexShrink: 0,
             }}
           />
-          <div style={{
+          <div data-logo="true" style={{
             fontFamily: 'var(--display)', fontStyle: 'italic',
             fontSize: 32, fontWeight: 400,
             color: 'var(--fg)', letterSpacing: '-0.02em', lineHeight: 1,
@@ -334,6 +466,7 @@ function Hero({ onOpen }) {
 
         {/* Middle: giant reactive name */}
         <div
+          data-hero-name="true"
           style={{
             fontFamily: 'var(--display)',
             fontSize: 'clamp(72px, 11vw, 168px)',
@@ -391,7 +524,7 @@ function Hero({ onOpen }) {
           gap: 18,
           marginBottom: 28,
         }}>
-          <h2 style={{
+          <h2 data-section-title="true" style={{
             fontFamily: 'var(--display)',
             fontStyle: 'italic',
             fontSize: 'clamp(32px, 3.8vw, 52px)',
@@ -448,7 +581,7 @@ function ProjectModal({ project, onClose }) {
   if (!project) return null;
 
   return (
-    <div onClick={onClose} style={{
+    <div onClick={onClose} data-modal-overlay="true" style={{
       position: 'fixed', inset: 0,
       background: 'rgba(38,30,20,0.55)',
       backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
@@ -456,15 +589,15 @@ function ProjectModal({ project, onClose }) {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: 32, animation: 'fadeIn .25s ease-out',
     }}>
-      <div onClick={(e) => e.stopPropagation()} style={{
+      <div onClick={(e) => e.stopPropagation()} data-modal="true" style={{
         width: '100%', maxWidth: 920, maxHeight: '90vh',
         background: 'var(--bg)',
         border: '1px solid var(--fg-faint)',
         overflow: 'auto',
         animation: 'slideUp .35s cubic-bezier(.2,.7,.3,1)',
       }}>
-        <div style={{ position: 'relative', padding: '64px 64px 48px' }}>
-          <button onClick={onClose} aria-label="Cerrar" style={{
+        <div data-modal-header="true" style={{ position: 'relative', padding: '64px 64px 48px' }}>
+          <button onClick={onClose} aria-label="Cerrar" data-modal-close="true" style={{
             position: 'absolute', top: 24, right: 24,
             width: 40, height: 40, border: '1px solid var(--fg-faint)',
             background: 'transparent', color: 'var(--fg)',
@@ -501,7 +634,7 @@ function ProjectModal({ project, onClose }) {
 
         <div style={{ height: 1, background: 'var(--fg-faint)' }} />
 
-        <div style={{ padding: '48px 64px 64px' }}>
+        <div data-modal-body="true" style={{ padding: '48px 64px 64px' }}>
           <p style={{
             fontFamily: 'var(--display)', fontSize: 19, lineHeight: 1.55,
             color: 'var(--fg)', margin: '0 0 48px', maxWidth: 720,
@@ -600,8 +733,8 @@ function ContactCTA() {
     window.location.href = 'mailto:' + NORAH.email;
   };
   return (
-    <section style={{ padding: '96px 64px 96px' }}>
-      <div style={{
+    <section data-contact="true" style={{ padding: '96px 64px 96px' }}>
+      <div data-contact-inner="true" style={{
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
@@ -612,6 +745,7 @@ function ContactCTA() {
             <a
               href={`mailto:${NORAH.email}`}
               onClick={onClick}
+              data-contact-cta="true"
               style={{
                 fontFamily: 'var(--display)', fontStyle: 'italic',
                 fontSize: 'clamp(64px, 12vw, 180px)',
@@ -623,7 +757,7 @@ function ContactCTA() {
               → Hablemos<span style={{ fontStyle: 'normal', color: 'var(--accent)' }}>.</span>
             </a>
 
-            <div style={{
+            <div data-contact-label="true" style={{
               marginTop: 28,
               fontFamily: 'var(--sans)', fontSize: 12,
               fontWeight: 600,
@@ -640,6 +774,7 @@ function ContactCTA() {
               <a
                 href={`mailto:${NORAH.email}`}
                 onClick={onClick}
+                data-contact-email="true"
                 style={{
                   fontFamily: 'var(--display)', fontStyle: 'italic',
                   fontSize: 22, color: 'var(--fg)',
@@ -706,7 +841,7 @@ const iconLabelStyle = {
 // ─── Footer ────────────────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer style={{ padding: '32px 64px 40px' }}>
+    <footer data-footer="true" style={{ padding: '32px 64px 40px' }}>
       <div style={{ height: 1, background: 'var(--fg-faint)', marginBottom: 24 }} />
       <div style={{
         display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
@@ -714,7 +849,7 @@ function Footer() {
         fontWeight: 600,
         color: 'var(--fg-dim)', letterSpacing: '0.06em',
       }}>
-        <span style={{
+        <span data-footer-brand="true" style={{
           fontFamily: 'var(--display)', fontStyle: 'italic',
           fontSize: 18, color: 'var(--fg)', letterSpacing: '-0.015em',
         }}>
