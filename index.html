@@ -61,6 +61,7 @@
       font-size: clamp(64px, 14vw, 120px) !important;
       margin: 20px 0 !important;
     }
+    [data-lang-switch-wrap] { top: 30px !important; right: 27px !important; }
     [data-project-row] [data-project-title] {
       font-size: clamp(32px, 7.5vw, 64px) !important;
     }
@@ -94,6 +95,7 @@
       line-height: 0.92 !important;
       margin: 12px 0 !important;
     }
+    [data-lang-switch-wrap] { top: 14px !important; right: 15px !important; }
     [data-logo]        { font-size: 22px !important; }
     [data-logo-flower] { width: 18px !important; height: 18px !important; }
 
@@ -181,7 +183,7 @@
 <div id="root"></div>
 <script type="text/babel" data-presets="react">
 
-const { useState, useEffect, useRef } = React;
+const { useState, useEffect, useRef, useContext, createContext } = React;
 
 // ─── Data ──────────────────────────────────────────────────────────────
 const NORAH = {
@@ -207,6 +209,21 @@ const PROJECTS = [
       { src:'assets/adriana/01-workflow.jpg', caption:'El workflow en n8n: cuatro fuentes en paralelo, merge y entrega por Telegram.' },
       { src:'assets/adriana/02-message.jpg',  caption:'El mensaje real que llega a las 7:45h cada mañana.' },
     ],
+    en:{
+      subtitle:'Daily Telegram assistant with a sense of humour (n8n + GPT)',
+      type:'Founderz course',
+      tags:['n8n','OpenAI GPT-4o-mini','Spotify API','OpenWeather API','Google Sheets'],
+      summary:'A personal assistant that every morning at 7:45 sends a Telegram message with the weather, recent expenses, the tasks of the day and a roast of your latest Spotify listens — all in the tone of a close friend with a sarcastic streak, written by GPT from the data n8n pulls together.',
+      highlights:[
+        'A Schedule Trigger fires four branches in parallel: expenses and tasks from Sheets, OpenWeather and Spotify',
+        'A Code node merges the items coming out of Merge into one before hitting the model, so the message never arrives fragmented',
+        'Voice design in the prompt: character, rules and explicit examples of what NOT to do',
+      ],
+      captions:[
+        'The n8n workflow: four sources in parallel, merge and delivery over Telegram.',
+        'The actual message that lands at 7:45 every morning.',
+      ],
+    },
   },
   { id:'landings', number:'02', title:'Landings',
     subtitle:'Auditoría automatizada de landing pages con IA',
@@ -223,6 +240,21 @@ const PROJECTS = [
       { src:'assets/landings/01-workflow.jpg', caption:'El workflow en n8n: detección de nuevas URLs, scraping, análisis con Groq y escritura en Sheet.' },
       { src:'assets/landings/02-sheet.gif',    caption:'Status "processing" → "done": cada fila se rellena con propuesta de valor, problemas de conversión y recomendaciones.' },
     ],
+    en:{
+      subtitle:'Automated landing page audits with AI',
+      type:'Founderz course',
+      tags:['n8n','Groq API','Google Sheets','Web scraping'],
+      summary:'An n8n workflow that scrapes a startup landing page, pulls out its conversion signals and writes AI-generated insights back into a Google Sheet, ready to review.',
+      highlights:[
+        'Every URL scraped with an HTTP node, extracting the relevant part of the DOM',
+        'Analysis with Groq (Llama model) through a structured conversion prompt',
+        'Results written straight back as new rows in the sheet',
+      ],
+      captions:[
+        'The n8n workflow: new URLs detected, scraped, analysed with Groq and written into the Sheet.',
+        'Status "processing" → "done": each row fills in with value proposition, conversion problems and recommendations.',
+      ],
+    },
   },
   { id:'escala', number:'03', title:'Escala',
     subtitle:'Anuncios contextuales y asistente de voz para el aeropuerto',
@@ -240,6 +272,21 @@ const PROJECTS = [
       { src:'assets/escala/01-anuncio.jpg', caption:'Durante el trayecto, un anuncio contextual según el estado de tu vuelo: si vas con tiempo, un café junto a tu puerta de embarque.' },
       { src:'assets/escala/02-cabi.jpg',    caption:'Cabi, el asistente de voz, te guía por el aeropuerto y responde lo que necesites sobre tu vuelo.' },
     ],
+    en:{
+      subtitle:'Contextual ads and a voice assistant for the airport',
+      type:'Cabify Hackathon',
+      tags:['Lovable','ElevenLabs','Voice assistant','WebRTC'],
+      summary:'Built at the Cabify Product Hackathon: the journey does not end when you step out of the car. The app detects that you have arrived at a big hub — airport or station — and walks you to your gate with advertising that is actually useful given your flight status, plus a voice assistant you can ask anything.',
+      highlights:[
+        'Ads matched to your flight: a quick coffee if you are tight on time, a restaurant or a lounge if you have some to spare — useful, not intrusive',
+        'Voice guidance across the whole airport, all the way to your gate',
+        'Cabi, the voice assistant (ElevenLabs), there for anything you need to ask about your trip',
+      ],
+      captions:[
+        'During the ride, an ad matched to your flight status: with time to spare, a coffee next to your gate.',
+        'Cabi, the voice assistant, guides you through the airport and answers whatever you need about your flight.',
+      ],
+    },
   },
   { id:'zurriola', number:'04', title:'SurfQL',
     subtitle:'Un año de surf en la Zurriola modelado en SQL, con datos reales del mar',
@@ -253,6 +300,17 @@ const PROJECTS = [
       'Esquema con claves foráneas, restricciones CHECK, índices y una vista desnormalizada',
       'Consultas con window functions, CTEs, gaps & islands y pivotes: mejores días del año, rachas surfeando, qué zona funciona con cada marea',
     ],
+    en:{
+      subtitle:'A year of surfing at Zurriola modelled in SQL, with real ocean data',
+      type:'Personal project',
+      tags:['SQL','SQLite','Data modelling','Python','Open-Meteo API'],
+      summary:'A relational database modelling a year of surf at Zurriola beach (Donostia). The ocean conditions are real — swell, wind, tide and water temperature downloaded from the open Open-Meteo API — and on top of them almost 5,000 surf sessions are simulated across Sagüés, the middle and the Kursaal. Eight analytical queries answer real questions from the line-up.',
+      highlights:[
+        'Real data ingest: a Python script downloads the year of swell and wind from Open-Meteo and loads it into SQLite',
+        'Schema with foreign keys, CHECK constraints, indexes and a denormalised view',
+        'Queries with window functions, CTEs, gaps & islands and pivots: best days of the year, surfing streaks, which zone works on each tide',
+      ],
+    },
   },
   { id:'autobuses', number:'05', title:'Autobuses',
     subtitle:'Cotizador de rutas — proyecto final CS50',
@@ -265,6 +323,17 @@ const PROJECTS = [
       'Modelo de coste basado en kilometraje y tarifas configurables',
       'Test suite en Pytest siguiendo las guías de CS50',
     ],
+    en:{
+      subtitle:'Route pricing tool — CS50 final project',
+      type:'Harvard edX · CS50P',
+      tags:['Python','Geopy','Pytest'],
+      summary:'Final project for Harvard edX’s CS50’s Introduction to Programming with Python. It estimates the cost of hiring a bus service between two locations using the Geopy API.',
+      highlights:[
+        'Geographic distance between two addresses calculated with Geopy',
+        'Cost model based on mileage and configurable rates',
+        'Pytest test suite following the CS50 guidelines',
+      ],
+    },
   },
   { id:'reuniones', number:'06', title:'Mis Reuniones',
     subtitle:'Horarios internacionales a hora española',
@@ -278,6 +347,17 @@ const PROJECTS = [
       'Conversión bidireccional cliente ↔ España',
       'Web estática, sin dependencias ni backend',
     ],
+    en:{
+      subtitle:'International schedules in Spanish time',
+      type:'Personal project',
+      tags:['JavaScript','Intl API','Web'],
+      summary:'Web tool to handle meetings with international clients, automatically converting their local time into time in Spain.',
+      highlights:[
+        'Pick the client’s time zone',
+        'Two-way conversion, client ↔ Spain',
+        'Static site, no dependencies and no backend',
+      ],
+    },
   },
   { id:'horas', number:'07', title:'WorthIt?',
     subtitle:'Lo que cuestan las cosas en tu tiempo',
@@ -291,8 +371,147 @@ const PROJECTS = [
       'Calcula cuántas horas de trabajo cuesta cualquier gasto',
       'Comparador: cuántas jornadas supone tu consumo mensual',
     ],
+    en:{
+      subtitle:'What things really cost you in time',
+      type:'Personal project',
+      tags:['JavaScript','Web'],
+      summary:'Web app that turns prices into working hours: what a product or a service really "costs" you in terms of the time you have to work to pay for it.',
+      highlights:[
+        'Enter your salary and your weekly hours',
+        'Work out how many hours of work any expense costs',
+        'Comparator: how many working days your monthly spending adds up to',
+      ],
+    },
   },
 ];
+
+// ─── i18n ──────────────────────────────────────────────────────────────
+const UI = {
+  es: {
+    htmlTitle:   'norah · portfolio',
+    projects:    'proyectos',
+    gallery:     'galería',
+    goToImage:   (n) => `Ir a imagen ${n}`,
+    prev:        'Anterior',
+    next:        'Siguiente',
+    close:       'Cerrar',
+    viewProject: 'Ver proyecto',
+    highlights:  'hitos',
+    talk:        'Hablemos',
+    writeMe:     'escríbeme a',
+    copied:      'copiado',
+  },
+  en: {
+    htmlTitle:   'norah · portfolio',
+    projects:    'projects',
+    gallery:     'gallery',
+    goToImage:   (n) => `Go to image ${n}`,
+    prev:        'Previous',
+    next:        'Next',
+    close:       'Close',
+    viewProject: 'View project',
+    highlights:  'highlights',
+    talk:        'Let’s talk',
+    writeMe:     'write to me at',
+    copied:      'copied',
+  },
+};
+
+const LangContext = createContext({ lang: 'es', setLang: () => {}, t: UI.es });
+const useLang = () => useContext(LangContext);
+
+// Merges the English overrides of a project on top of its Spanish base.
+function localizeProject(p, lang) {
+  if (lang !== 'en' || !p.en) return p;
+  const { en } = p;
+  return {
+    ...p,
+    subtitle: en.subtitle || p.subtitle,
+    type:     en.type     || p.type,
+    tags:     en.tags     || p.tags,
+    summary:  en.summary  || p.summary,
+    highlights: en.highlights || p.highlights,
+    images: p.images
+      ? p.images.map((img, i) => ({ ...img, caption: (en.captions && en.captions[i]) || img.caption }))
+      : p.images,
+  };
+}
+
+function useStoredLang() {
+  const [lang, setLang] = useState(() => {
+    let saved = null;
+    try { saved = localStorage.getItem('norah-lang'); } catch (e) {}
+    if (saved === 'es' || saved === 'en') return saved;
+    const nav = (navigator.language || 'es').toLowerCase();
+    return nav.startsWith('es') ? 'es' : 'en';
+  });
+
+  useEffect(() => {
+    try { localStorage.setItem('norah-lang', lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    document.title = UI[lang].htmlTitle;
+  }, [lang]);
+
+  return [lang, setLang];
+}
+
+// ─── Language switch ───────────────────────────────────────────────────
+function LangSwitch() {
+  const { lang, setLang } = useLang();
+
+  const item = (code) => ({
+    background: 'transparent',
+    border: 'none',
+    padding: '10px 5px',   // comfortable tap target without changing how it reads
+    cursor: 'pointer',
+    fontFamily: 'var(--sans)',
+    fontSize: 12,
+    fontWeight: 600,
+    letterSpacing: '0.14em',
+    textTransform: 'uppercase',
+    color: code === lang ? 'var(--accent)' : 'var(--fg-dim)',
+    transition: 'color .25s ease',
+  });
+
+  return (
+    <div
+      data-lang-switch="true"
+      style={{
+        display: 'inline-flex',
+        alignItems: 'baseline',
+        gap: 1,
+        fontFamily: 'var(--sans)',
+        fontSize: 12,
+        fontWeight: 600,
+        letterSpacing: '0.14em',
+        color: 'var(--fg-faint)',
+        userSelect: 'none',
+      }}
+    >
+      <span aria-hidden="true">[</span>
+      <button
+        type="button"
+        onClick={() => setLang('es')}
+        aria-pressed={lang === 'es'}
+        aria-label="Español"
+        style={item('es')}
+        onMouseEnter={(e) => { if (lang !== 'es') e.currentTarget.style.color = 'var(--fg)'; }}
+        onMouseLeave={(e) => { if (lang !== 'es') e.currentTarget.style.color = 'var(--fg-dim)'; }}
+      >es</button>
+      <span aria-hidden="true" style={{ color: 'var(--fg-faint)' }}>/</span>
+      <button
+        type="button"
+        onClick={() => setLang('en')}
+        aria-pressed={lang === 'en'}
+        aria-label="English"
+        style={item('en')}
+        onMouseEnter={(e) => { if (lang !== 'en') e.currentTarget.style.color = 'var(--fg)'; }}
+        onMouseLeave={(e) => { if (lang !== 'en') e.currentTarget.style.color = 'var(--fg-dim)'; }}
+      >en</button>
+      <span aria-hidden="true">]</span>
+    </div>
+  );
+}
 
 // ─── Reveal on scroll ──────────────────────────────────────────────────
 function Reveal({ children, delay = 0, y = 24 }) {
@@ -431,6 +650,7 @@ function ProjectLine({ project, onOpen, allMuted, isHovered, onEnter, onLeave })
 
 // ─── Hero (split layout) ───────────────────────────────────────────────
 function Hero({ onOpen }) {
+  const { t } = useLang();
   const wrapRef = useRef(null);
   const [mouse, setMouse] = useState({ x: -9999, y: -9999, active: false });
   const [mounted, setMounted] = useState(false);
@@ -467,6 +687,15 @@ function Hero({ onOpen }) {
         gap: 64,
       }}
     >
+      {/* Top-right: language switch — aligned with the logotype */}
+      <div data-lang-switch-wrap="true" style={{
+        position: 'absolute', top: 46, right: 59, zIndex: 20,
+        opacity: mounted ? 1 : 0,
+        transition: 'opacity 0.8s 0.2s',
+      }}>
+        <LangSwitch />
+      </div>
+
       {/* ─── LEFT column ─── */}
       <div style={{
         display: 'flex',
@@ -571,7 +800,7 @@ function Hero({ onOpen }) {
             lineHeight: 1,
             margin: 0,
           }}>
-            proyectos<span style={{ color: 'var(--accent)' }}>.</span>
+            {t.projects}<span style={{ color: 'var(--accent)' }}>.</span>
           </h2>
           <span style={{
             fontFamily: 'var(--sans)',
@@ -605,6 +834,7 @@ function Hero({ onOpen }) {
 
 // ─── Carousel ──────────────────────────────────────────────────────────
 function ProjectCarousel({ images }) {
+  const { t } = useLang();
   const [idx, setIdx] = useState(0);
   const total = images?.length || 0;
 
@@ -651,7 +881,7 @@ function ProjectCarousel({ images }) {
           color: 'var(--fg-dim)', letterSpacing: '0.12em',
           textTransform: 'uppercase',
         }}>
-          [galería] · <span style={{ color: 'var(--accent)' }}>{String(idx + 1).padStart(2,'0')}</span>
+          [{t.gallery}] · <span style={{ color: 'var(--accent)' }}>{String(idx + 1).padStart(2,'0')}</span>
           <span style={{ opacity: 0.55 }}> / {String(total).padStart(2,'0')}</span>
         </div>
         {total > 1 && (
@@ -660,7 +890,7 @@ function ProjectCarousel({ images }) {
               <button
                 key={i}
                 onClick={() => setIdx(i)}
-                aria-label={`Ir a imagen ${i + 1}`}
+                aria-label={t.goToImage(i + 1)}
                 style={{
                   width: idx === i ? 22 : 8, height: 4,
                   background: idx === i ? 'var(--accent)' : 'var(--fg-faint)',
@@ -705,14 +935,14 @@ function ProjectCarousel({ images }) {
           <>
             <button
               onClick={prev}
-              aria-label="Anterior"
+              aria-label={t.prev}
               style={{ ...arrowStyle, left: 16 }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--accent)'; e.currentTarget.style.color = 'var(--bg)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(15,28,80,0.72)'; e.currentTarget.style.color = 'var(--fg)'; }}
             >←</button>
             <button
               onClick={next}
-              aria-label="Siguiente"
+              aria-label={t.next}
               style={{ ...arrowStyle, right: 16 }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--accent)'; e.currentTarget.style.color = 'var(--bg)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(15,28,80,0.72)'; e.currentTarget.style.color = 'var(--fg)'; }}
@@ -735,7 +965,8 @@ function ProjectCarousel({ images }) {
 }
 
 // ─── Modal ─────────────────────────────────────────────────────────────
-function ProjectModal({ project, onClose }) {
+function ProjectModal({ project: rawProject, onClose }) {
+  const { lang, t } = useLang();
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
@@ -746,7 +977,9 @@ function ProjectModal({ project, onClose }) {
     };
   }, [onClose]);
 
-  if (!project) return null;
+  if (!rawProject) return null;
+
+  const project = localizeProject(rawProject, lang);
 
   return (
     <div onClick={onClose} data-modal-overlay="true" style={{
@@ -765,7 +998,7 @@ function ProjectModal({ project, onClose }) {
         animation: 'slideUp .35s cubic-bezier(.2,.7,.3,1)',
       }}>
         <div data-modal-header="true" style={{ position: 'relative', padding: '64px 64px 48px' }}>
-          <button onClick={onClose} aria-label="Cerrar" data-modal-close="true" style={{
+          <button onClick={onClose} aria-label={t.close} data-modal-close="true" style={{
             position: 'absolute', top: 24, right: 24,
             width: 40, height: 40, border: '1px solid var(--fg-faint)',
             background: 'transparent', color: 'var(--fg)',
@@ -825,7 +1058,7 @@ function ProjectModal({ project, onClose }) {
                 letterSpacing: '-0.01em',
               }}
             >
-              → Ver proyecto
+              → {t.viewProject}
               <span style={{ fontSize: 12, color: 'var(--fg-dim)', fontFamily: 'var(--sans)' }}>
                 {project.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
               </span>
@@ -842,7 +1075,7 @@ function ProjectModal({ project, onClose }) {
             color: 'var(--fg-dim)', letterSpacing: '0.12em',
             textTransform: 'uppercase', marginBottom: 20,
           }}>
-            [hitos]
+            [{t.highlights}]
           </div>
           <ul style={{ listStyle: 'none', margin: '0 0 48px', padding: 0 }}>
             {project.highlights.map((h, i) => (
@@ -896,6 +1129,7 @@ const GitHubIcon = ({ size = 22 }) => (
 
 // ─── Contact ───────────────────────────────────────────────────────────
 function ContactCTA() {
+  const { t } = useLang();
   const [copied, setCopied] = useState(false);
   const onClick = (e) => {
     e.preventDefault();
@@ -926,7 +1160,7 @@ function ContactCTA() {
                 textDecoration: 'none', display: 'inline-block',
                 cursor: 'pointer',
               }}>
-              → Hablemos<span style={{ fontStyle: 'normal', color: 'var(--accent)' }}>.</span>
+              → {t.talk}<span style={{ fontStyle: 'normal', color: 'var(--accent)' }}>.</span>
             </a>
 
             <div data-contact-label="true" style={{
@@ -936,7 +1170,7 @@ function ContactCTA() {
               color: 'var(--accent)', letterSpacing: '0.14em',
               textTransform: 'uppercase',
             }}>
-              [escríbeme a]
+              [{t.writeMe}]
             </div>
 
             <div style={{
@@ -963,7 +1197,7 @@ function ContactCTA() {
                   fontWeight: 600,
                   color: 'var(--accent)', letterSpacing: '0.05em',
                 }}>
-                  [copiado]
+                  [{t.copied}]
                 </span>
               )}
             </div>
@@ -1036,13 +1270,15 @@ function Footer() {
 // ─── App ───────────────────────────────────────────────────────────────
 function App() {
   const [openProject, setOpenProject] = useState(null);
+  const [lang, setLang] = useStoredLang();
+
   return (
-    <>
+    <LangContext.Provider value={{ lang, setLang, t: UI[lang] }}>
       <Hero onOpen={setOpenProject} />
       <ContactCTA />
       <Footer />
       {openProject && <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />}
-    </>
+    </LangContext.Provider>
   );
 }
 
