@@ -110,11 +110,6 @@
     [data-project-row][data-hovered="true"] {
       padding-left: 0 !important;
     }
-    [data-project-number] {
-      font-size: 10px !important;
-      min-width: 22px !important;
-      margin-top: 8px !important;
-    }
     [data-project-title] {
       font-size: clamp(28px, 9vw, 44px) !important;
       letter-spacing: -0.02em !important;
@@ -443,18 +438,21 @@ function useStoredLang() {
 function LangSwitch() {
   const { lang, setLang } = useLang();
 
+  // Fraunces itálica, la misma del logo y de los títulos: el selector deja de
+  // parecer un control suelto y pasa a leerse como parte de la marca.
   const item = (code) => ({
     background: 'transparent',
     border: 'none',
-    padding: '10px 5px',   // comfortable tap target without changing how it reads
+    padding: '8px 4px',
     cursor: 'pointer',
-    fontFamily: 'var(--sans)',
-    fontSize: 12,
-    fontWeight: 600,
-    letterSpacing: '0.14em',
-    textTransform: 'uppercase',
+    fontFamily: 'var(--display)',
+    fontStyle: 'italic',
+    fontSize: 19,
+    fontWeight: code === lang ? 600 : 400,
+    lineHeight: 1,
+    letterSpacing: '-0.01em',
     color: code === lang ? 'var(--accent)' : 'var(--fg-dim)',
-    transition: 'color .25s ease',
+    transition: 'color .25s ease, font-weight .25s ease',
   });
 
   return (
@@ -462,17 +460,11 @@ function LangSwitch() {
       data-lang-switch="true"
       style={{
         display: 'inline-flex',
-        alignItems: 'baseline',
-        gap: 1,
-        fontFamily: 'var(--sans)',
-        fontSize: 12,
-        fontWeight: 600,
-        letterSpacing: '0.14em',
-        color: 'var(--fg-faint)',
+        alignItems: 'center',
+        gap: 2,
         userSelect: 'none',
       }}
     >
-      <span aria-hidden="true">[</span>
       <button
         type="button"
         onClick={() => setLang('es')}
@@ -482,7 +474,14 @@ function LangSwitch() {
         onMouseEnter={(e) => { if (lang !== 'es') e.currentTarget.style.color = 'var(--fg)'; }}
         onMouseLeave={(e) => { if (lang !== 'es') e.currentTarget.style.color = 'var(--fg-dim)'; }}
       >es</button>
-      <span aria-hidden="true" style={{ color: 'var(--fg-faint)' }}>/</span>
+      {/* la barra retoma el "/" que abre cada título de proyecto */}
+      <span aria-hidden="true" style={{
+        fontFamily: 'var(--display)',
+        fontStyle: 'italic',
+        fontSize: 19,
+        lineHeight: 1,
+        color: 'var(--fg-faint)',
+      }}>/</span>
       <button
         type="button"
         onClick={() => setLang('en')}
@@ -492,7 +491,6 @@ function LangSwitch() {
         onMouseEnter={(e) => { if (lang !== 'en') e.currentTarget.style.color = 'var(--fg)'; }}
         onMouseLeave={(e) => { if (lang !== 'en') e.currentTarget.style.color = 'var(--fg-dim)'; }}
       >en</button>
-      <span aria-hidden="true">]</span>
     </div>
   );
 }
@@ -604,14 +602,6 @@ function ProjectLine({ project, onOpen, allMuted, isHovered, onEnter, onLeave })
         transition: 'opacity .3s ease',
       }}
     >
-      <span data-project-number="true" style={{
-        fontFamily: 'var(--sans)', fontSize: 12,
-        fontWeight: 600,
-        color: 'var(--accent)', letterSpacing: '0.04em',
-        alignSelf: 'flex-start', marginTop: 14,
-        minWidth: 22,
-      }}>{number}</span>
-
       <span data-project-title="true" style={{
         fontFamily: 'var(--display)',
         fontStyle: 'italic',
@@ -786,15 +776,6 @@ function Hero({ onOpen }) {
           }}>
             {t.projects}<span style={{ color: 'var(--accent)' }}>.</span>
           </h2>
-          <span style={{
-            fontFamily: 'var(--sans)',
-            fontWeight: 500,
-            fontSize: 13,
-            color: 'var(--accent)',
-            letterSpacing: '0.08em',
-          }}>
-            [{String(PROJECTS.length).padStart(2, '0')}]
-          </span>
           <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.28)', marginBottom: 6 }} />
         </div>
 
@@ -996,7 +977,6 @@ function ProjectModal({ project: rawProject, onClose }) {
             textTransform: 'uppercase', marginBottom: 32,
             display: 'flex', gap: 12, alignItems: 'center',
           }}>
-            <span style={{ color: 'var(--accent)' }}>[{project.number}]</span>
             <span>{project.type}</span>
             <span>·</span>
             <span>{project.year}</span>
