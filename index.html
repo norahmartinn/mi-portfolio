@@ -189,41 +189,7 @@ const NORAH = {
 };
 
 const PROJECTS = [
-  { id:'fresco', number:'01', title:'FRESCÓ',
-    subtitle:'Un restaurante que decide qué ofrecer según lo que está a punto de caducar',
-    year:'2026', type:'Trabajo Fin de Máster',
-    tags:['Python','Simulación','LLM','Groq','JavaScript','GitHub Pages'],
-    stack:'Python · LLM',
-    url:'https://norahmartinn.github.io/fresco/',
-    summary:'Un restaurante de producto fresco compra por la mañana a ojo y se entera de lo que le ha sobrado cuando ya no puede venderlo. FRESCÓ cierra ese hueco durante el servicio: cada media hora, una IA mira qué caduca esta noche, pone delante el plato que mejor lo aprovecha y escribe ella misma cómo contarlo. Detrás hay un simulador de servicio en Python con inventario por lotes y caducidades reales, donde comparé cuatro formas de decidir la carta sobre las mismas semillas aleatorias, y tres pantallas conectadas: la carta del comensal, el pase de cocina y la pantalla del comedor.',
-    highlights:[
-      'El resultado que no esperaba, y el que más defiendo: mi scoring de cinco variables no bate a una regla de una línea. Los intervalos de confianza al 95 % se solapan enteros, así que comparé contra lo que un jefe de cocina ya hace sin software en vez de contra un rival de paja',
-      'Guardarraíl de veracidad numérica: el texto que lee el cliente lo escribe un modelo, y toda cifra tiene que poder rastrearse al inventario real. La que no cuadra no se publica y sale una línea de plantilla. Actúa en el 12 % de los textos generados',
-      'Medir dónde está de verdad el problema: el factor de compra de la mañana triplica el nivel de merma, mientras que la política de menú le quita un porcentaje casi constante. El algoritmo de la carta no es la palanca principal, y decirlo cambia el proyecto',
-    ],
-    images:[
-      { src:'assets/fresco/01-mesa.jpg',        caption:'La carta en la mesa: la mascota recomienda el plato que mejor aprovecha lo que corre prisa, y el pedido entra directo en cocina.' },
-      { src:'assets/fresco/02-cocina.jpg',      caption:'El pase: qué producto caduca antes, cuánto queda y qué plato conviene empujar en esta franja.' },
-      { src:'assets/fresco/03-guardarrail.jpg', caption:'Los textos que el sistema no publicó porque citaban una cifra que no cuadraba con el inventario.' },
-    ],
-    en:{
-      subtitle:'A restaurant that decides what to offer based on what is about to spoil',
-      type:'MSc final project',
-      tags:['Python','Simulation','LLM','Groq','JavaScript','GitHub Pages'],
-      summary:'A fresh-produce restaurant buys in the morning on a guess and finds out what was left over once it can no longer sell it. FRESCÓ closes that gap during service: every thirty minutes an AI looks at what expires tonight, puts forward the dish that uses it best, and writes the wording itself. Behind it sits a service simulator in Python with batch-level inventory and real expiry dates, where I compared four ways of deciding the menu across identical random seeds, plus three connected screens: the diner\'s menu, the kitchen pass and the dining-room display.',
-      highlights:[
-        'The result I did not expect, and the one I stand behind most: my five-variable scoring does not beat a one-line rule. The 95 % confidence intervals overlap entirely, because I compared against what a competent head chef already does without software rather than against a straw man',
-        'A numeric-veracity guardrail: the copy the customer reads is written by a model, and every figure has to trace back to real inventory. What does not check out is never published, and a template line goes out instead. It fires on 12 % of generated copy',
-        'Measuring where the problem actually is: the morning purchasing factor triples the level of waste, while the menu policy removes a roughly constant percentage of it. The menu algorithm is not the main lever, and saying so reshaped the project',
-      ],
-      captions:[
-        'The menu at the table: the mascot recommends the dish that best uses what is running out, and the order goes straight to the kitchen.',
-        'The pass: which produce expires first, how much is left and which dish is worth pushing in this slot.',
-        'The copy the system refused to publish because it quoted a figure that did not match the inventory.',
-      ],
-    },
-  },
-  { id:'tonights-pick', number:'02', title:"Tonight's pick",
+  { id:'tonights-pick', number:'01', title:"Tonight's pick",
     subtitle:'Recomendador de cine con IA verificada contra una base de datos real',
     year:'2026', type:'Proyecto personal',
     tags:['TanStack Start','React 19','SSR','Supabase','Cloudflare Workers','TMDB API'],
@@ -252,6 +218,40 @@ const PROJECTS = [
       captions:[
         'A plain-language request returns a single recommendation, with the reason written for that person.',
         'The taste profile that builds itself from your ratings: genres, eras and affinities.',
+      ],
+    },
+  },
+  { id:'fresco', number:'02', title:'Frescó',
+    subtitle:'Un restaurante que decide qué ofrecer según lo que está a punto de caducar',
+    year:'2026', type:'Trabajo Fin de Máster',
+    tags:['Python','Simulación','LLM','Groq','JavaScript','GitHub Pages'],
+    stack:'Python · LLM',
+    url:'https://norahmartinn.github.io/fresco/',
+    summary:'Para mi TFM construí un restaurante entero y el sistema de IA que lo gobierna. Escribí un simulador de servicio en Python, sin dependencias externas y con 61 tests, que modela inventario por lotes con consumo FEFO, caducidades y elección de plato. Sobre él comparé cuatro políticas de carta con las mismas semillas aleatorias e intervalos de confianza al 95 %, con separación entre entrenamiento y test para detectar sobreajuste, y añadí barridos de sensibilidad sobre los dos parámetros que dominan el resultado, además de un módulo de previsión de demanda evaluado por error medio absoluto. La capa generativa la resuelve un modelo de lenguaje que decide qué platos se destacan y escribe los textos que lee el cliente, con un verificador que rastrea cada cifra hasta el inventario antes de publicarla. Después porté el motor de riesgo a JavaScript y monté las tres pantallas del restaurante conectadas entre sí, la identidad de marca y la memoria de 43 páginas.',
+    highlights:[
+      'El resultado que no esperaba, y el que más defiendo: mi scoring de cinco variables no bate a una regla de una línea. Los intervalos de confianza al 95 % se solapan enteros, así que comparé contra lo que un jefe de cocina ya hace sin software en vez de contra un rival de paja',
+      'Guardarraíl de veracidad numérica: el texto que lee el cliente lo escribe un modelo, y toda cifra tiene que poder rastrearse al inventario real. La que no cuadra no se publica y sale una línea de plantilla. Actúa en el 12 % de los textos generados',
+      'Medir dónde está de verdad el problema: el factor de compra de la mañana triplica el nivel de merma, mientras que la política de menú le quita un porcentaje casi constante. El algoritmo de la carta no es la palanca principal, y decirlo cambia el proyecto',
+    ],
+    images:[
+      { src:'assets/fresco/01-mesa.jpg',        caption:'La carta en la mesa: la mascota recomienda el plato que mejor aprovecha lo que corre prisa, y el pedido entra directo en cocina.' },
+      { src:'assets/fresco/02-cocina.jpg',      caption:'El pase: qué producto caduca antes, cuánto queda y qué plato conviene empujar en esta franja.' },
+      { src:'assets/fresco/03-guardarrail.jpg', caption:'Los textos que el sistema no publicó porque citaban una cifra que no cuadraba con el inventario.' },
+    ],
+    en:{
+      subtitle:'A restaurant that decides what to offer based on what is about to spoil',
+      type:'MSc final project',
+      tags:['Python','Simulation','LLM','Groq','JavaScript','GitHub Pages'],
+      summary:'For my MSc final project I built an entire restaurant and the AI system that runs it. I wrote a service simulator in Python, no external dependencies and 61 tests, modelling batch-level inventory with FEFO consumption, expiry dates and dish choice. On top of it I compared four menu policies across identical random seeds with 95 % confidence intervals and a train/test split to catch overfitting, added sensitivity sweeps over the two parameters that dominate the result, and a demand forecasting module scored by mean absolute error. The generative layer is a language model that decides which dishes to promote and writes the copy the customer reads, with a verifier that traces every figure back to inventory before it ships. I then ported the risk engine to JavaScript and built the restaurant\'s three connected screens, the brand identity and the 43-page written report.',
+      highlights:[
+        'The result I did not expect, and the one I stand behind most: my five-variable scoring does not beat a one-line rule. The 95 % confidence intervals overlap entirely, because I compared against what a competent head chef already does without software rather than against a straw man',
+        'A numeric-veracity guardrail: the copy the customer reads is written by a model, and every figure has to trace back to real inventory. What does not check out is never published, and a template line goes out instead. It fires on 12 % of generated copy',
+        'Measuring where the problem actually is: the morning purchasing factor triples the level of waste, while the menu policy removes a roughly constant percentage of it. The menu algorithm is not the main lever, and saying so reshaped the project',
+      ],
+      captions:[
+        'The menu at the table: the mascot recommends the dish that best uses what is running out, and the order goes straight to the kitchen.',
+        'The pass: which produce expires first, how much is left and which dish is worth pushing in this slot.',
+        'The copy the system refused to publish because it quoted a figure that did not match the inventory.',
       ],
     },
   },
