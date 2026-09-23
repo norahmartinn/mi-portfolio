@@ -202,6 +202,7 @@ const PROJECTS = [
       'Interfaz y contenido bilingües: el idioma viaja hasta el prompt y hasta TMDB, así que la sinopsis, los géneros y el motivo generado cambian con la interfaz',
     ],
     images:[
+      { src:'assets/tonights-pick/00-demo.mp4', type:'video', poster:'assets/tonights-pick/00-demo-poster.jpg', caption:'La app en el móvil: pides algo con tus palabras y sale una sola película, con el motivo y la valoración.' },
       { src:'assets/tonights-pick/01-recomendacion.jpg', caption:'Una petición en lenguaje natural devuelve una única recomendación, con el motivo redactado para esa persona.' },
       { src:'assets/tonights-pick/02-gustos.jpg',        caption:'El perfil de gustos que se construye solo a partir de las valoraciones: géneros, épocas y afinidades.' },
     ],
@@ -216,6 +217,7 @@ const PROJECTS = [
         'Bilingual interface and content: the locale travels all the way into the prompt and into TMDB, so the synopsis, the genres and the generated reason switch with the UI',
       ],
       captions:[
+        'The app on a phone: you ask in your own words and get a single film, with the reason and a rating.',
         'A plain-language request returns a single recommendation, with the reason written for that person.',
         'The taste profile that builds itself from your ratings: genres, eras and affinities.',
       ],
@@ -832,6 +834,35 @@ function Hero({ onOpen }) {
 }
 
 // ─── Carousel ──────────────────────────────────────────────────────────
+// Muted looping clip that only plays while it is the visible slide
+function CarouselVideo({ img, active }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    if (active) { v.currentTime = 0; v.play().catch(() => {}); }
+    else v.pause();
+  }, [active]);
+  return (
+    <video
+      ref={ref}
+      src={img.src}
+      poster={img.poster}
+      aria-label={img.caption}
+      muted loop playsInline preload="metadata"
+      style={{
+        position: 'absolute',
+        inset: 0,
+        width: '100%', height: '100%',
+        objectFit: 'contain',
+        opacity: active ? 1 : 0,
+        transition: 'opacity 0.55s cubic-bezier(.2,.7,.3,1)',
+        pointerEvents: active ? 'auto' : 'none',
+      }}
+    />
+  );
+}
+
 function ProjectCarousel({ images }) {
   const { t } = useLang();
   const [idx, setIdx] = useState(0);
@@ -911,7 +942,9 @@ function ProjectCarousel({ images }) {
         border: '1px solid var(--fg-faint)',
         overflow: 'hidden',
       }}>
-        {images.map((img, i) => (
+        {images.map((img, i) => img.type === 'video' ? (
+          <CarouselVideo key={i} img={img} active={idx === i} />
+        ) : (
           <img
             key={i}
             src={img.src}
