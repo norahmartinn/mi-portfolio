@@ -195,7 +195,8 @@ const PROJECTS = [
     tags:['TanStack Start','React 19','SSR','Supabase','Cloudflare Workers','TMDB API'],
     stack:'TanStack Start · Supabase',
     url:'https://tonights-pick.norahmartinn.workers.dev',
-    summary:'App full-stack que devuelve UNA sola recomendación a partir de una petición en lenguaje natural, con el motivo redactado para quien pregunta. Renderizado en servidor con TanStack Start sobre Cloudflare Workers, Postgres en Supabase con row-level security, y una capa de IA cuyas respuestas se validan contra TMDB antes de llegar a pantalla. Construye además un perfil de gustos a partir de lo que valoras.',
+    summary:'Le cuentas con tus palabras qué te apetece ver y te recomienda una sola película o serie, con el motivo por el que encaja contigo. Cuantas más valoras, mejor te conoce.',
+    tech:'App full-stack con renderizado en servidor (TanStack Start sobre Cloudflare Workers) y Postgres en Supabase con row-level security. La capa de IA no se fía del modelo: cada respuesta se valida contra la API de TMDB antes de llegar a pantalla, y las valoraciones alimentan un perfil de gustos que se recalcula solo.',
     highlights:[
       'Ningún dato del modelo llega sin verificar: cada título se busca en TMDB y, si no existe, se reintenta vetándolo. Póster, géneros, nota, duración y plataforma salen de TMDB, no de lo que el modelo recuerde',
       'Recuperación aumentada para lo que el modelo no puede saber: ante peticiones de estrenos recientes o con límite de duración, se consultan candidatos reales en TMDB y se le pasan acotados, porque su corte de conocimiento no alcanza',
@@ -210,7 +211,8 @@ const PROJECTS = [
       subtitle:'AI film recommender, verified against a real film database',
       type:'Personal project',
       tags:['TanStack Start','React 19','SSR','Supabase','Cloudflare Workers','TMDB API'],
-      summary:'A full-stack app that returns ONE recommendation from a plain-language request, with the reason written for the person asking. Server-rendered with TanStack Start on Cloudflare Workers, Postgres on Supabase with row-level security, and an AI layer whose answers are validated against TMDB before they reach the screen. It also builds a taste profile from what you rate.',
+      summary:'You say what you feel like watching in your own words and it recommends one film or series, with the reason it suits you. The more you rate, the better it knows you.',
+      tech:'Full-stack app, server-rendered with TanStack Start on Cloudflare Workers, with Postgres on Supabase behind row-level security. The AI layer does not trust the model: every answer is validated against the TMDB API before it reaches the screen, and ratings feed a taste profile that recalculates itself.',
       highlights:[
         'Nothing from the model ships unverified: every title is looked up in TMDB and, when it does not exist, asked again with that title banned. Poster, genres, rating, runtime and streaming service come from TMDB, not from what the model recalls',
         'Retrieval augmentation for what the model cannot know: for recent releases or runtime limits, real candidates are pulled from TMDB and handed over as a closed set, because its knowledge cutoff does not reach',
@@ -229,7 +231,8 @@ const PROJECTS = [
     tags:['Python','Simulación','LLM','Groq','JavaScript','GitHub Pages'],
     stack:'Python · LLM',
     url:'https://norahmartinn.github.io/fresco/',
-    summary:'Para mi TFM construí un restaurante entero y el sistema de IA que lo gobierna. Escribí un simulador de servicio en Python, sin dependencias externas y con 61 tests, que modela inventario por lotes con consumo FEFO, caducidades y elección de plato. Sobre él comparé cuatro políticas de carta con las mismas semillas aleatorias e intervalos de confianza al 95 %, con separación entre entrenamiento y test para detectar sobreajuste, y añadí barridos de sensibilidad sobre los dos parámetros que dominan el resultado, además de un módulo de previsión de demanda evaluado por error medio absoluto. La capa generativa la resuelve un modelo de lenguaje que decide qué platos se destacan y escribe los textos que lee el cliente, con un verificador que rastrea cada cifra hasta el inventario antes de publicarla. Después porté el motor de riesgo a JavaScript y monté las tres pantallas del restaurante conectadas entre sí, la identidad de marca y la memoria de 43 páginas.',
+    summary:'Un restaurante que usa IA para tirar menos comida. Cada media hora mira qué ingredientes están a punto de caducar y destaca en la carta los platos que los aprovechan. Es mi TFM y lo construí entero.',
+    tech:'El núcleo es un simulador de servicio en Python, sin dependencias externas y con 61 tests, que modela el inventario por lotes con consumo FEFO y caducidades. Sobre él comparé cuatro políticas de carta con semillas idénticas, intervalos de confianza al 95 % y separación train/test para detectar sobreajuste, más barridos de sensibilidad y un módulo de previsión de demanda evaluado por MAE. Un LLM servido por Groq decide los destacados y redacta los textos del cliente, y un verificador rastrea cada cifra hasta el inventario antes de publicarla. El motor de riesgo está portado a JavaScript y mueve las tres pantallas del sistema, conectadas entre sí. Completan el proyecto la identidad de marca y una memoria de 43 páginas.',
     highlights:[
       'El resultado que no esperaba, y el que más defiendo: mi scoring de cinco variables no bate a una regla de una línea. Los intervalos de confianza al 95 % se solapan enteros, así que comparé contra lo que un jefe de cocina ya hace sin software en vez de contra un rival de paja',
       'Guardarraíl de veracidad numérica: el texto que lee el cliente lo escribe un modelo, y toda cifra tiene que poder rastrearse al inventario real. La que no cuadra no se publica y sale una línea de plantilla. Actúa en el 12 % de los textos generados',
@@ -244,7 +247,8 @@ const PROJECTS = [
       subtitle:'A restaurant that decides what to offer based on what is about to spoil',
       type:'MSc final project',
       tags:['Python','Simulation','LLM','Groq','JavaScript','GitHub Pages'],
-      summary:'For my MSc final project I built an entire restaurant and the AI system that runs it. I wrote a service simulator in Python, no external dependencies and 61 tests, modelling batch-level inventory with FEFO consumption, expiry dates and dish choice. On top of it I compared four menu policies across identical random seeds with 95 % confidence intervals and a train/test split to catch overfitting, added sensitivity sweeps over the two parameters that dominate the result, and a demand forecasting module scored by mean absolute error. The generative layer is a language model that decides which dishes to promote and writes the copy the customer reads, with a verifier that traces every figure back to inventory before it ships. I then ported the risk engine to JavaScript and built the restaurant\'s three connected screens, the brand identity and the 43-page written report.',
+      summary:'A restaurant that uses AI to throw away less food. Every half hour it checks which ingredients are about to expire and promotes the dishes on the menu that use them. It is my MSc final project, and I built all of it.',
+      tech:'The core is a service simulator in Python, with no external dependencies and 61 tests, modelling batch-level inventory with FEFO consumption and expiry dates. On top of it I compared four menu policies with identical seeds, 95 % confidence intervals and a train/test split to catch overfitting, plus sensitivity sweeps and a demand forecasting module scored by MAE. An LLM served through Groq picks the featured dishes and writes the customer copy, and a verifier traces every figure back to inventory before it ships. The risk engine is ported to JavaScript and drives the system\'s three connected screens. The brand identity and a 43-page written report complete the project.',
       highlights:[
         'The result I did not expect, and the one I stand behind most: my five-variable scoring does not beat a one-line rule. The 95 % confidence intervals overlap entirely, because I compared against what a competent head chef already does without software rather than against a straw man',
         'A numeric-veracity guardrail: the copy the customer reads is written by a model, and every figure has to trace back to real inventory. What does not check out is never published, and a template line goes out instead. It fires on 12 % of generated copy',
@@ -262,7 +266,8 @@ const PROJECTS = [
     year:'2026', type:'Curso Founderz',
     tags:['n8n','OpenAI GPT-4o-mini','Spotify API','OpenWeather API','Google Sheets'],
     stack:'n8n · GPT-4o', url: null,
-    summary:'Asistente personal automatizado que cada mañana a las 7:45h envía un mensaje por Telegram con el tiempo, los gastos recientes, las tareas del día y un roast de las últimas escuchas en Spotify — todo en tono de amigo cercano con sarcasmo, generado por GPT a partir de los datos agregados en n8n.',
+    summary:'Cada mañana a las 7:45 te manda un mensaje por Telegram con el tiempo, tus gastos, las tareas del día y un roast de lo que has escuchado en Spotify. Habla como un amigo con bastante sarcasmo.',
+    tech:'Workflow en n8n. Un Schedule Trigger lanza cuatro ramas en paralelo contra Google Sheets, la API de OpenWeather y la de Spotify. Un nodo Code une en un solo objeto lo que sale del Merge, y GPT-4o-mini redacta el mensaje con un prompt de voice design: personaje, reglas y ejemplos de lo que no debe hacer. La entrega va por la API de bots de Telegram.',
     highlights:[
       'Schedule Trigger lanza cuatro ramas en paralelo: Sheets de gastos y tareas, OpenWeather y Spotify',
       'Nodo Code que combina los items del Merge en uno antes de pasar al modelo, evitando mensajes fragmentados',
@@ -276,7 +281,8 @@ const PROJECTS = [
       subtitle:'Daily Telegram assistant with a sense of humour (n8n + GPT)',
       type:'Founderz course',
       tags:['n8n','OpenAI GPT-4o-mini','Spotify API','OpenWeather API','Google Sheets'],
-      summary:'A personal assistant that every morning at 7:45 sends a Telegram message with the weather, recent expenses, the tasks of the day and a roast of your latest Spotify listens — all in the tone of a close friend with a sarcastic streak, written by GPT from the data n8n pulls together.',
+      summary:'Every morning at 7:45 it sends you a Telegram message with the weather, your spending, the day\'s tasks and a roast of what you\'ve been playing on Spotify. It talks like a friend with a sarcastic streak.',
+      tech:'An n8n workflow. A Schedule Trigger fires four branches in parallel against Google Sheets, the OpenWeather API and the Spotify API. A Code node folds whatever comes out of the Merge into a single object, and GPT-4o-mini writes the message from a voice design prompt: character, rules and examples of what not to do. Delivery goes through the Telegram Bot API.',
       highlights:[
         'A Schedule Trigger fires four branches in parallel: expenses and tasks from Sheets, OpenWeather and Spotify',
         'A Code node merges the items coming out of Merge into one before hitting the model, so the message never arrives fragmented',
@@ -293,7 +299,8 @@ const PROJECTS = [
     year:'2026', type:'Curso Founderz',
     tags:['n8n','Groq API','Google Sheets','Web scraping'],
     stack:'n8n · Groq', url: null,
-    summary:'Workflow automático en n8n que scrapea la landing page de una startup, extrae las señales de conversión y escribe insights generados por IA de vuelta en una Google Sheet lista para revisar.',
+    summary:'Pegas la web de una startup en una hoja de cálculo y la fila se rellena sola: qué ofrece esa página, qué le impide convertir visitas en clientes y qué cambiarías.',
+    tech:'Workflow en n8n que detecta las URLs nuevas en Google Sheets, descarga cada página con un nodo HTTP y extrae la parte relevante del DOM. El análisis lo hace un modelo Llama servido por Groq con un prompt estructurado de conversión. La respuesta se escribe en la misma fila y el estado pasa de "processing" a "done".',
     highlights:[
       'Scraping de cada URL con nodo HTTP y extracción del DOM relevante',
       'Análisis con Groq (modelo Llama) vía prompt estructurado de conversión',
@@ -307,7 +314,8 @@ const PROJECTS = [
       subtitle:'Automated landing page audits with AI',
       type:'Founderz course',
       tags:['n8n','Groq API','Google Sheets','Web scraping'],
-      summary:'An n8n workflow that scrapes a startup landing page, pulls out its conversion signals and writes AI-generated insights back into a Google Sheet, ready to review.',
+      summary:'You paste a startup\'s website into a spreadsheet and the row fills itself in: what the page offers, what stops it turning visitors into customers and what you would change.',
+      tech:'An n8n workflow that picks up new URLs in Google Sheets, fetches each page with an HTTP node and extracts the relevant part of the DOM. A Llama model served through Groq analyses it with a structured conversion prompt. The answer is written back into the same row and the status goes from "processing" to "done".',
       highlights:[
         'Every URL scraped with an HTTP node, extracting the relevant part of the DOM',
         'Analysis with Groq (Llama model) through a structured conversion prompt',
@@ -325,7 +333,8 @@ const PROJECTS = [
     tags:['Lovable','ElevenLabs','Asistente de voz','WebRTC'],
     stack:'Lovable · ElevenLabs',
     url:'https://escalabycabify.lovable.app/',
-    summary:'Creado en el Cabify Product Hackathon: el viaje no termina al bajarte del coche. La app detecta que has llegado a un gran hub aeropuerto o estación y te acompaña hasta la puerta de embarque con publicidad útil según el estado de tu vuelo y un asistente de voz al que preguntarle lo que sea.',
+    summary:'Cuando Cabify te deja en el aeropuerto, la app te acompaña hasta la puerta de embarque. Tienes un asistente de voz al que preguntar lo que sea y anuncios que te sirven según cómo vaya tu vuelo. La hicimos en equipo en el Cabify Product Hackathon, en un solo día.',
+    tech:'Prototipo web construido con Lovable. Cabi, el asistente, es un agente conversacional de ElevenLabs que habla en tiempo real por WebRTC. Los anuncios dependen del estado del vuelo: si vas justo, un café rápido; si te sobra tiempo, un restaurante o la sala VIP.',
     highlights:[
       'Anuncios contextuales según tu vuelo: un café rápido si vas justo de tiempo, restaurante o sala VIP si te sobra — útil, no invasivo',
       'Guía por voz por todo el aeropuerto hasta la puerta de embarque',
@@ -339,7 +348,8 @@ const PROJECTS = [
       subtitle:'Contextual ads and a voice assistant for the airport',
       type:'Cabify Hackathon',
       tags:['Lovable','ElevenLabs','Voice assistant','WebRTC'],
-      summary:'Built at the Cabify Product Hackathon: the journey does not end when you step out of the car. The app detects that you have arrived at a big hub — airport or station — and walks you to your gate with advertising that is actually useful given your flight status, plus a voice assistant you can ask anything.',
+      summary:'When Cabify drops you at the airport, the app walks you to your gate. You get a voice assistant to ask anything and ads that are actually useful given how your flight is doing. We built it as a team at the Cabify Product Hackathon, in a single day.',
+      tech:'A web prototype built with Lovable. Cabi, the assistant, is an ElevenLabs conversational agent that talks in real time over WebRTC. The ads depend on flight status: tight on time, a quick coffee; time to spare, a restaurant or the lounge.',
       highlights:[
         'Ads matched to your flight: a quick coffee if you are tight on time, a restaurant or a lounge if you have some to spare — useful, not intrusive',
         'Voice guidance across the whole airport, all the way to your gate',
@@ -357,7 +367,8 @@ const PROJECTS = [
     tags:['SQL','SQLite','Modelado de datos','Python','Open-Meteo API'],
     stack:'SQLite · SQL',
     url:'https://github.com/norahmartinn/SurfQL',
-    summary:'Base de datos relacional que modela un año de surf en la playa de la Zurriola (Donostia). Las condiciones del mar son reales — oleaje, viento, marea y temperatura del agua descargadas de la API abierta de Open-Meteo — y sobre ellas se simulan casi 5.000 sesiones de surf repartidas entre Sagüés, el centro y el Kursaal. Ocho consultas analíticas responden preguntas reales del pico.',
+    summary:'Un año de surf en la Zurriola (Donostia) metido en una base de datos. Responde cosas como qué días hubo las mejores olas, qué zona de la playa funciona con cada marea o quién encadenó más días seguidos en el agua.',
+    tech:'El oleaje, el viento, la marea y la temperatura del agua son reales: un script en Python los descarga de las APIs Marine y Archive de Open-Meteo y los carga en SQLite. Encima se simulan casi 5.000 sesiones con semilla fija, así que todo es reproducible. El esquema tiene cuatro tablas con claves foráneas, restricciones CHECK, índices y una vista desnormalizada. Las ocho consultas analíticas usan window functions, CTEs, gaps & islands y pivotes.',
     highlights:[
       'Ingesta de datos reales: script en Python que descarga el año de oleaje y viento de Open-Meteo y lo carga en SQLite',
       'Esquema con claves foráneas, restricciones CHECK, índices y una vista desnormalizada',
@@ -367,7 +378,8 @@ const PROJECTS = [
       subtitle:'A year of surfing at Zurriola modelled in SQL, with real ocean data',
       type:'Personal project',
       tags:['SQL','SQLite','Data modelling','Python','Open-Meteo API'],
-      summary:'A relational database modelling a year of surf at Zurriola beach (Donostia). The ocean conditions are real — swell, wind, tide and water temperature downloaded from the open Open-Meteo API — and on top of them almost 5,000 surf sessions are simulated across Sagüés, the middle and the Kursaal. Eight analytical queries answer real questions from the line-up.',
+      summary:'A year of surfing at Zurriola beach (Donostia) inside a database. It answers questions like which days had the best waves, which part of the beach works on each tide or who strung together the most days in a row in the water.',
+      tech:'Swell, wind, tide and water temperature are real: a Python script pulls them from the Open-Meteo Marine and Archive APIs and loads them into SQLite. Almost 5,000 sessions are simulated on top with a fixed seed, so everything is reproducible. The schema has four tables with foreign keys, CHECK constraints, indexes and a denormalised view. The eight analytical queries use window functions, CTEs, gaps & islands and pivots.',
       highlights:[
         'Real data ingest: a Python script downloads the year of swell and wind from Open-Meteo and loads it into SQLite',
         'Schema with foreign keys, CHECK constraints, indexes and a denormalised view',
@@ -380,7 +392,8 @@ const PROJECTS = [
     year:'2024', type:'Harvard edX · CS50P',
     tags:['Python','Geopy','Pytest'],
     stack:'Python', url: 'https://github.com/norahmartinn/CS50-Final-Project',
-    summary:'Proyecto final del curso de Harvard edX CS50\u2019s Introduction to Programming with Python. Estima el coste de contratar un servicio de autobús entre dos ubicaciones usando la API de Geopy.',
+    summary:'Le das dos direcciones y te dice cuánto costaría contratar un autobús para ese trayecto. Fue mi proyecto final del curso CS50\'s Introduction to Programming with Python de Harvard (edX).',
+    tech:'Escrito en Python. Geopy geocodifica las direcciones y calcula la distancia entre ellas, y un modelo de coste la convierte en precio con tarifas por kilómetro configurables. Lleva una batería de tests en Pytest, siguiendo las pautas de CS50.',
     highlights:[
       'Cálculo de distancia geográfica entre dos direcciones con Geopy',
       'Modelo de coste basado en kilometraje y tarifas configurables',
@@ -390,7 +403,8 @@ const PROJECTS = [
       subtitle:'Route pricing tool — CS50 final project',
       type:'Harvard edX · CS50P',
       tags:['Python','Geopy','Pytest'],
-      summary:'Final project for Harvard edX’s CS50’s Introduction to Programming with Python. It estimates the cost of hiring a bus service between two locations using the Geopy API.',
+      summary:'Give it two addresses and it tells you what hiring a bus for that trip would cost. It was my final project for Harvard\'s CS50\'s Introduction to Programming with Python (edX).',
+      tech:'Written in Python. Geopy geocodes the addresses and works out the distance between them, and a cost model turns it into a price with configurable per-kilometre rates. It ships with a Pytest test suite that follows the CS50 guidelines.',
       highlights:[
         'Geographic distance between two addresses calculated with Geopy',
         'Cost model based on mileage and configurable rates',
@@ -445,6 +459,7 @@ function localizeProject(p, lang) {
     type:     en.type     || p.type,
     tags:     en.tags     || p.tags,
     summary:  en.summary  || p.summary,
+    tech:     en.tech     || p.tech,
     highlights: en.highlights || p.highlights,
     images: p.images
       ? p.images.map((img, i) => ({ ...img, caption: (en.captions && en.captions[i]) || img.caption }))
@@ -1069,10 +1084,19 @@ function ProjectModal({ project: rawProject, onClose }) {
         <div data-modal-body="true" style={{ padding: '48px 64px 64px' }}>
           <p style={{
             fontFamily: 'var(--display)', fontSize: 19, lineHeight: 1.55,
-            color: 'var(--fg)', margin: '0 0 48px', maxWidth: 720,
+            color: 'var(--fg)', margin: project.tech ? '0 0 20px' : '0 0 48px', maxWidth: 720,
           }}>
             {project.summary}
           </p>
+          {project.tech && (
+            <p style={{
+              fontFamily: 'var(--sans)', fontSize: 15, lineHeight: 1.7,
+              color: 'var(--fg-dim)', margin: '0 0 48px', maxWidth: 720,
+              paddingLeft: 18, borderLeft: '2px solid var(--accent)',
+            }}>
+              {project.tech}
+            </p>
+          )}
 
           {project.url && (
             <a
