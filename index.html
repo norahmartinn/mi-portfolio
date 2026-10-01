@@ -267,7 +267,7 @@ const PROJECTS = [
     tags:['Python','Simulación','LLM','Groq','JavaScript','GitHub Pages'],
     stack:'Python · LLM',
     url:'https://norahmartinn.github.io/fresco/',
-    summary:'Un restaurante que usa IA para tirar menos comida. Cada media hora mira qué ingredientes están a punto de caducar y destaca en la carta los platos que los aprovechan. Es mi TFM y lo construí entero.',
+    summary:'Un restaurante que usa IA para tirar menos comida. Cada media hora mira qué ingredientes están a punto de caducar y destaca en la carta los platos que los aprovechan.',
     tech:'El núcleo es un simulador de servicio en Python, sin dependencias externas y con 61 tests, que modela el inventario por lotes con consumo FEFO y caducidades. Sobre él comparé cuatro políticas de carta con semillas idénticas, intervalos de confianza al 95 % y separación train/test para detectar sobreajuste, más barridos de sensibilidad y un módulo de previsión de demanda evaluado por MAE. Un LLM servido por Groq decide los destacados y redacta los textos del cliente, y un verificador rastrea cada cifra hasta el inventario antes de publicarla. El motor de riesgo está portado a JavaScript y mueve las tres pantallas del sistema, conectadas entre sí. Completan el proyecto la identidad de marca y una memoria de 43 páginas.',
     highlights:[
       'El resultado que no esperaba, y el que más defiendo: mi scoring de cinco variables no bate a una regla de una línea. Los intervalos de confianza al 95 % se solapan enteros, así que comparé contra lo que un jefe de cocina ya hace sin software en vez de contra un rival de paja',
@@ -283,7 +283,7 @@ const PROJECTS = [
       subtitle:'A restaurant that decides what to offer based on what is about to spoil',
       type:'MSc final project',
       tags:['Python','Simulation','LLM','Groq','JavaScript','GitHub Pages'],
-      summary:'A restaurant that uses AI to throw away less food. Every half hour it checks which ingredients are about to expire and promotes the dishes on the menu that use them. It is my MSc final project, and I built all of it.',
+      summary:'A restaurant that uses AI to throw away less food. Every half hour it checks which ingredients are about to expire and promotes the dishes on the menu that use them.',
       tech:'The core is a service simulator in Python, with no external dependencies and 61 tests, modelling batch-level inventory with FEFO consumption and expiry dates. On top of it I compared four menu policies with identical seeds, 95 % confidence intervals and a train/test split to catch overfitting, plus sensitivity sweeps and a demand forecasting module scored by MAE. An LLM served through Groq picks the featured dishes and writes the customer copy, and a verifier traces every figure back to inventory before it ships. The risk engine is ported to JavaScript and drives the system\'s three connected screens. The brand identity and a 43-page written report complete the project.',
       highlights:[
         'The result I did not expect, and the one I stand behind most: my five-variable scoring does not beat a one-line rule. The 95 % confidence intervals overlap entirely, because I compared against what a competent head chef already does without software rather than against a straw man',
