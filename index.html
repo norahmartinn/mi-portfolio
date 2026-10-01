@@ -94,10 +94,6 @@
     color: var(--accent); transition: color .25s ease;
   }
   .project[data-hovered="true"] .project-title { color: var(--fg); }
-  .project-title sup {
-    font-family: var(--sans); font-weight: 600; font-size: 14px; letter-spacing: .04em;
-    vertical-align: top; position: relative; top: .5em; margin-left: 10px; color: var(--fg);
-  }
   .project-sub { font-family: var(--sans); font-size: 17px; line-height: 1.45; color: var(--fg-dim); max-width: 52ch; }
   .project-sub b { font-weight: 600; color: var(--accent); }
   .project:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
@@ -687,7 +683,6 @@ function ProjectItem({ project, onOpen, isHovered, onEnter }) {
           letterClass={isHovered ? 'h-flow-on' : 'h-flow'}
           letterStyle={(i) => ({ transitionDelay: `${i * 28}ms` })}
         />
-        <sup>{p.number}</sup>
       </span>
       <span className="project-sub">
         {p.subtitle}. <b>{p.type}, {p.year}</b>
